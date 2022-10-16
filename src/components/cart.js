@@ -17,6 +17,7 @@ const Cart = ({ cart, setCart, handleChange }) => {
   };
 
   useEffect(() => {
+    console.log(cart)
     handlePrice();
   });
 

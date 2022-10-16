@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Switch, Route ,Routes } from "react-router-dom";
 import Amazon from "./components/amazon";
 import Navbar from "./components/navbar";
 import Cart from "./components/cart";
@@ -9,7 +10,12 @@ const App = () => {
 
   const handleClick = (item) => {
     if (cart.indexOf(item) !== -1) return;
+    console.log(item)
     setCart([...cart, item]);
+    //Axios.post("Api",cart)
+    // Save to db
+    
+    
   };
 
   const handleChange = (item, d) => {
@@ -26,14 +32,23 @@ const App = () => {
   // }, [cart]);
 
   return (
-    <React.Fragment>
-      <Navbar setShow={setShow} size={cart.length} />
-      {show ? (
-        <Amazon handleClick={handleClick} />
-      ) : (
-        <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
-      )}
-    </React.Fragment>
+
+   
+      <Switch>
+           <Navbar setShow={setShow} size={cart.length} />
+        <Routes>
+
+       
+        <Route exact path="/" element={<Amazon handleClick={handleClick} />} />
+        <Route exact path="/cart" element={<Cart cart={cart} setCart={setCart}  handleChange={handleChange}/>} />
+        </Routes>
+        </Switch>
+      // {/* {show ? (
+      //   <Amazon />
+      // ) : (
+      //   <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
+      // )} */}
+  
   );
 };
 
